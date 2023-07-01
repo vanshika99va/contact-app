@@ -25,7 +25,7 @@ const removeContactHandler = (id) => {
 
 useEffect(() => { 
   const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-  if(retrieveContacts) setContacts(retrieveContacts);
+  if(retrieveContacts != 0) setContacts(retrieveContacts);
 },[]);
 
 useEffect(() => { 
