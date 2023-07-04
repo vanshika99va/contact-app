@@ -5,12 +5,19 @@ import Header from "./Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import ContactDetails from "./ContactDetails";
+import api from '../api/contact';
 
 function App() {
   
 const  LOCAL_STORAGE_KEY = "contacts";
-
 const [contacts,setContacts] = useState([]);
+
+//Retrieved contacts
+const retrieveContacts = async () => {
+  const repsonse = await api.get("/contacts");
+  return Response.data;
+};
+
 
 const addContactHandler = (contact) => {
   console.log(" in addContact fn : ",contact);
@@ -26,9 +33,17 @@ const removeContactHandler = (id) => {
 }
 
 useEffect(() => { 
-  const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-  if(retrieveContacts != 0) setContacts(retrieveContacts);
+  // const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+  // if(retrieveContacts != 0) setContacts(retrieveContacts);
+
+  const getAllContacts = async () => {
+    const allContacts = await retrieveContacts();
+    if(allContacts != 0) setContacts(allContacts);
+  }
+  getAllContacts();
 },[]);
+
+
 
 useEffect(() => { 
   localStorage.setItem(LOCAL_STORAGE_KEY,JSON.stringify(contacts))
